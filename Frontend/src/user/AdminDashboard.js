@@ -94,7 +94,7 @@ const AdminDashboard = () => {
             <div className="card-body">
               <p className="card-text">
                 {" "}
-                Total: <strong>10</strong>
+                Total: <strong>3</strong>
               </p>
             </div>
           </div>
@@ -111,7 +111,7 @@ const AdminDashboard = () => {
             />
             <div className="card-body">
               <p className="card-text">
-                Total: <strong>5</strong>
+                Total: <strong>4</strong>
               </p>
             </div>
           </div>
