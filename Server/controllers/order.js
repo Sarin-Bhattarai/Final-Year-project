@@ -158,7 +158,7 @@ module.exports = {
   getType: async (req, res) => {
     const paymentType = req.params.type;
     try {
-      const order = await Order.find({ paymentType });
+      const order = await Order.find({ paymentType }).populate("user");
       return res.status(200).json({
         status: "success",
         data: { order },

@@ -8,27 +8,14 @@ import { getPaymentType } from "./userApi";
 
 const AdminDashboard = () => {
   const [showSidebar, setShowSidebar] = useState(true);
-  const [type, setType] = useState({
-    type: "",
-    error: "",
-    loading: false,
-    redirectToReferrer: false,
-  });
+  const [data, setData] = useState([]);
   const history = useHistory();
 
-  const clickSubmit = (event) => {
-    event.preventDefault();
-    setType({ ...type, error: false, loading: true });
-    getPaymentType().then((data) => {
-      if (data.error) {
-        setType({ ...type, error: data.error, loading: false });
-      } else {
-        setType({
-          ...type,
-          redirectToReferrer: true,
-        });
-      }
-    });
+  const clickSubmit = async (type) => {
+    // event.preventDefault();
+    const orders = await getPaymentType(type);
+    console.log(orders.data.order);
+    setData(orders.data.order);
   };
 
   const adminLinks = () => {
@@ -130,13 +117,16 @@ const AdminDashboard = () => {
           </div>
         </div>
         <br />
-        <button className="btn btn-info mr-5 " onClick={clickSubmit}>
+        <button
+          className="btn btn-info mr-5 "
+          onClick={() => clickSubmit("khalti")}
+        >
           By Online Sales
         </button>
         <button
           className="btn btn-info offset-md-1"
           style={{ marginLeft: "20px" }}
-          onClick={clickSubmit}
+          onClick={() => clickSubmit("cod")}
         >
           By Offline Sales
         </button>
@@ -152,51 +142,27 @@ const AdminDashboard = () => {
               <tr>
                 <th>User</th>
                 <th>Address</th>
-                <th>Product Quantity</th>
+                <th>Phone</th>
                 <th>Payment Type</th>
                 <th>Total</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Sujan Khadka</td>
-                <td>Birauta, Pokhara</td>
-                <td>5</td>
-                <td>Khalti</td>
-                <td>550</td>
-              </tr>
-
-              <tr>
-                <td>Sarin Bhattarai</td>
-                <td>Lakeside, Pokhara</td>
-                <td>4</td>
-                <td>Khalti</td>
-                <td>400</td>
-              </tr>
-
-              <tr>
-                <td>Alex Doe</td>
-                <td>Malepatan, Pokhara</td>
-                <td>2</td>
-                <td>Khalti</td>
-                <td>150</td>
-              </tr>
-
-              <tr>
-                <td>Ritika Basnet</td>
-                <td>Mahendrapool, Pokhara</td>
-                <td>2</td>
-                <td>Khalti</td>
-                <td>250</td>
-              </tr>
-
-              <tr>
-                <td>Bruno Fernandes</td>
-                <td>Miruwa, Pokhara</td>
-                <td>6</td>
-                <td>Khalti</td>
-                <td>750</td>
-              </tr>
+              {data && data.length ? (
+                data.map((item) => (
+                  <tr key={item._id}>
+                    <td>{item?.user?.name}</td>
+                    <td>{item.deliveryLocation}</td>
+                    <td>{item.phone}</td>
+                    <td>{item.paymentType}</td>
+                    <td>{item.total}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td>No results till now</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

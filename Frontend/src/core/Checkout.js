@@ -13,21 +13,6 @@ const Checkout = ({ products }) => {
     phone: "",
   });
 
-  // const [filteredProducts, setFilteredProducts] = useState([]);
-
-  // const cartData = JSON.parse(localStorage.getItem("cart") || []);
-
-  // useEffect(() => {
-  //   if (cartData) {
-  //     console.log(cartData);
-  //     const filteredProducts = cartData.map((product) => {
-  //       const { _id, quantity } = product;
-  //       return { _id, quantity };
-  //     });
-  //     setFilteredProducts(filteredProducts);
-  //   }
-  // }, [cartData]);
-
   const getTotal = () => {
     //first take function as an argument and second one is index
     return products.reduce((currentValue, nextValue) => {
@@ -59,6 +44,8 @@ const Checkout = ({ products }) => {
           },
           token,
         });
+        localStorage.removeItem("cart");
+        window.location.reload(false);
       },
       // onError handler is optional
       onError(error) {
@@ -106,6 +93,8 @@ const Checkout = ({ products }) => {
         icon: "success",
         confirmButtonText: "Close",
       });
+      localStorage.removeItem("cart");
+      window.location.reload(false);
     } else {
       Swal.fire({
         title: "Error!",
