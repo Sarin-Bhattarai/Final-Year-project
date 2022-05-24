@@ -27,7 +27,8 @@ const OrderDetail = () => {
       id: orderId,
       token,
       status: newStatus,
-    }).then((res) => {
+    });
+    window.location.reload(false).then((res) => {
       console.log(res);
     });
   };
