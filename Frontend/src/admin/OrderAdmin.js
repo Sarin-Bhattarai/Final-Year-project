@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../Assets/utils/adminLayout";
 import { getOrders } from "./apiAdmin";
 import { Link } from "react-router-dom";
+import { isAuthenticated } from "../auth";
 
 const OrderAdmin = () => {
   const [orders, setOrders] = useState([]);
+
+  const { token } = isAuthenticated();
 
   useEffect(() => {
     getOrders().then((data) => {
@@ -15,7 +18,7 @@ const OrderAdmin = () => {
       }
     });
   }, []);
-  console.log(orders);
+
   return (
     <AdminLayout>
       <div
@@ -33,7 +36,6 @@ const OrderAdmin = () => {
               <th>Address</th>
               <th>Payment Type</th>
               <th>Update</th>
-              <th>Cancel</th>
             </tr>
           </thead>
           <tbody>
@@ -51,9 +53,6 @@ const OrderAdmin = () => {
                     <Link to={`/admin/order/${order._id}`}>
                       <button className="btn btn-primary">Update</button>
                     </Link>
-                  </td>
-                  <td>
-                    <button className="btn btn-danger">Cancel</button>
                   </td>
                 </tr>
               ))}
