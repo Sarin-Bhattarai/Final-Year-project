@@ -63,7 +63,6 @@ const OrderUser = () => {
               <th>Phone</th>
               <th>Address</th>
               <th>Payment Type</th>
-              <th>View Details</th>
             </tr>
           </thead>
           <tbody>
@@ -77,9 +76,6 @@ const OrderUser = () => {
                   <td>{order.phone}</td>
                   <td>{order.deliveryLocation}</td>
                   <td>{order.paymentType}</td>
-                  <button className="btn btn-primary ml-5 mb-3 mt-2">
-                    Details
-                  </button>
                 </tr>
               ))}
           </tbody>
