@@ -18,7 +18,7 @@ const orderRoutes = require("./routes/order");
 
 //app
 const app = express();
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use("/uploads", express.static("uploads"));
 
 //db
