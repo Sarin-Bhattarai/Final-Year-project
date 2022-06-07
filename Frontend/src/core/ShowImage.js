@@ -1,6 +1,6 @@
 import React from "react";
 
-const URL = "http://localhost:8000/";
+const URL = "https://fewa-api.herokuapp.com/";
 
 const ShowImage = ({ item, url }) => {
   console.log(item);
